@@ -1,0 +1,13 @@
+*.class
+
+/bin/
+/out/
+/target/
+.metadata/
+.settings/
+.classpath
+.project
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
