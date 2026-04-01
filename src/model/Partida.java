@@ -1,8 +1,8 @@
-package wordle;
+package model;
 
 import java.util.ArrayList;
 
-import wordle.Palabra.EstadoLetra;
+import model.Palabra.EstadoLetra;
 //Aca solo se maneja lo que es la "Partida", por lo que no deberia guardar muchas cosas mas alla de los colores e historial de intentos.
 public class Partida {
 	private Palabra palabraSecreta;

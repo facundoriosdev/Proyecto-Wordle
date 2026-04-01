@@ -1,7 +1,9 @@
-package wordle;
+package model;
 
-import wordle.Palabra.EstadoLetra;
 import org.junit.jupiter.api.Test;
+
+import model.Palabra.EstadoLetra;
+
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 //algunos tests para comprobrar el funcionamiento correcto de los metodos.

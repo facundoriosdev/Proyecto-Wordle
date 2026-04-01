@@ -1,4 +1,4 @@
-package wordle;
+package model;
 public class Palabra {
 	private static int LENGTH_PALABRA= 5;
 	private String letras;
