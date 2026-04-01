@@ -11,3 +11,10 @@
 *.iml
 .DS_Store
 Thumbs.db
+/model/
+/view/
+/controller/
+/wordle/
+/main/
+/presenter/
+/material/
