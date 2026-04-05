@@ -1,6 +1,7 @@
 package main;
 
 import javax.swing.UIManager;
+
 import view.MenuScreen;
 
 public class Main {

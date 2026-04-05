@@ -12,8 +12,8 @@ public class TestPalabra {
 	@Test
 	@DisplayName("constructor con la palabra correcta")
 	void testCorrecta() {
-		Palabra palabraSecreta= new Palabra("12345");
-		Palabra palabraIntento= new Palabra("12345");
+		Palabra palabraSecreta = new Palabra("12345");
+		String palabraIntento = "12345";
 		EstadoLetra[] estadoCorrecto= {EstadoLetra.VERDE,EstadoLetra.VERDE,EstadoLetra.VERDE, EstadoLetra.VERDE, EstadoLetra.VERDE };
 		assertArrayEquals(palabraSecreta.compararPalabra(palabraIntento), estadoCorrecto);
 		
@@ -22,7 +22,7 @@ public class TestPalabra {
 	@DisplayName("Constructor con palabra incorrecta")
 	void testDosCorrecta() {
 		Palabra palabraSecreta= new Palabra("12345");
-		Palabra palabraIntento= new Palabra("abcde");
+		String palabraIntento = "abcde";
 		EstadoLetra[] estadoCorrecto= {EstadoLetra.GRIS, EstadoLetra.GRIS,EstadoLetra.GRIS,EstadoLetra.GRIS,EstadoLetra.GRIS};
 		assertArrayEquals(palabraSecreta.compararPalabra(palabraIntento),estadoCorrecto);
 		
@@ -31,7 +31,7 @@ public class TestPalabra {
 	@DisplayName ("Constructor con palabra incorrecta, pero con letras correctas")
 	void testparcial () {
 		Palabra palabraSecreta = new Palabra ("12345");
-		Palabra palabraIntento= new Palabra("a2c4d");
+		String palabraIntento= "a2c4d";
 		EstadoLetra[] estadoCorrecto= {EstadoLetra.GRIS,EstadoLetra.VERDE,EstadoLetra.GRIS,EstadoLetra.VERDE,EstadoLetra.GRIS};
 		assertArrayEquals(palabraSecreta.compararPalabra(palabraIntento),estadoCorrecto);
 
@@ -40,7 +40,7 @@ public class TestPalabra {
 	@DisplayName("Constructor con palabra incorrecta, pero con algunas letras contenidas")
 	void testLetrasContenidas() {
 		Palabra palabraSecreta = new Palabra ("12845");
-		Palabra palabraIntento= new Palabra("54721");
+		String palabraIntento= "54721";
 		EstadoLetra[] estadoCorrecto= {EstadoLetra.AMARILLO,EstadoLetra.AMARILLO,EstadoLetra.GRIS,EstadoLetra.AMARILLO,EstadoLetra.AMARILLO};
 		assertArrayEquals(palabraSecreta.compararPalabra(palabraIntento),estadoCorrecto);
 	}

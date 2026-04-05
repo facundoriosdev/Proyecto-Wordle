@@ -40,7 +40,7 @@ public class MenuScreen extends JFrame{
 		dificultadLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
 		dificultadLabel.setBounds(56, 201, 221, 67);
 		getContentPane().add(dificultadLabel);
-		
+			
 		// Campo de llenar nombre
 		nombreField = new JTextField();
 		nombreField.setFont(new Font("Tahoma", Font.BOLD, 30));
@@ -60,12 +60,12 @@ public class MenuScreen extends JFrame{
 		empezarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nombre = nombreField.getText();
-				String eleccion = (String) dificultadBox.getSelectedItem();
+				String dificultad = (String) dificultadBox.getSelectedItem();
 				if(validarNombre(nombre))
 					problemaConNombre();
 				else {
 					informacionDeJuego();
-					//eleccionJugador(nombre, eleccion); //Inicia el juego 
+					eleccionJugador(nombre, dificultad); //Inicia el juego 
 				}
 			}
 		});
@@ -73,8 +73,6 @@ public class MenuScreen extends JFrame{
 		empezarButton.setFont(new Font("Tahoma", Font.BOLD, 30));
 		empezarButton.setBounds(180, 281, 208, 50);
 		getContentPane().add(empezarButton);
-		
-		
 	}
 	
 	//***********************************************
@@ -84,7 +82,7 @@ public class MenuScreen extends JFrame{
 	}
 	
 	private void eleccionJugador(String nombre, String dificultad) { // y otras caracterias de parametros para hacer la pantalla acorde al nivel
-		GameScreen pantalla = new GameScreen(nombre, dificultad, 4); // el 4 es el largo de palabras solo esta de prueba
+		GameScreen pantalla = new GameScreen(nombre, dificultad); // dificultad determina largo de palabra
 	}
 	
 	private void problemaConNombre() {

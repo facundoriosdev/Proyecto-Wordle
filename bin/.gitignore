@@ -11,5 +11,6 @@
 *.iml
 .DS_Store
 Thumbs.db
-/main/
 /view/
+/model/
+/main/
