@@ -9,7 +9,7 @@ public class EndScreen extends JFrame{
 	private JFrame frame;
 
 	public EndScreen() {
-		
+		// Pantalla de final del juego mostrando el randking global
 	}
 
 }

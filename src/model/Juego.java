@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+//	 
+// Clase que manejara la logica para que la clase GameScreen la utilze (seria la logica del juego)
+//
 
 //Esta clase orquesta todo el wordle, la idea es que aca tambien se guarde lo que es los puntajes y se pueda cambiar el idioma
 public class Juego {
