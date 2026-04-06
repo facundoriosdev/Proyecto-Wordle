@@ -12,9 +12,12 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import presenter.MenuPresenter;
 
 public class MenuScreen extends JFrame{
+	private MenuPresenter presenter;
 	private JTextField nombreField;
+	private JComboBox<String> dificultadBox;
 
 	public MenuScreen() {
 		// Caracteristicas de la pantalla:
@@ -49,7 +52,7 @@ public class MenuScreen extends JFrame{
 		nombreField.setColumns(10);
 		
 		// Selector de dificultad
-		JComboBox<String> dificultadBox = new JComboBox<>();
+		dificultadBox = new JComboBox<>();
 		dificultadBox.setFont(new Font("Tahoma", Font.BOLD, 30));
 		dificultadBox.setBounds(315, 211, 208, 35);
 		getContentPane().add(dificultadBox);
@@ -59,14 +62,7 @@ public class MenuScreen extends JFrame{
 		JButton empezarButton = new JButton("EMPEZAR");
 		empezarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombre = nombreField.getText();
-				String dificultad = (String) dificultadBox.getSelectedItem();
-				if(validarNombre(nombre))
-					problemaConNombre();
-				else {
-					informacionDeJuego();
-					eleccionJugador(nombre, dificultad); //Inicia el juego 
-				}
+				presenter.Empezar();
 			}
 		});
 		empezarButton.setForeground(new Color(46, 46, 46));
@@ -76,21 +72,24 @@ public class MenuScreen extends JFrame{
 	}
 	
 	//***********************************************
-	
-	private boolean validarNombre(String str) {
-		return (str == null || str.length() < 3 || str.length() > 10);
+	public void setPresenter(MenuPresenter presenter) {
+		this.presenter = presenter;
 	}
 	
-	private void eleccionJugador(String nombre, String dificultad) { // y otras caracterias de parametros para hacer la pantalla acorde al nivel
-		GameScreen pantalla = new GameScreen(nombre, dificultad); // dificultad determina largo de palabra
+	public String getNombre() {
+		return nombreField.getText();
 	}
 	
-	private void problemaConNombre() {
+	public String getDificultad() {
+		return (String) dificultadBox.getSelectedItem();
+	}
+	
+	public void mostrarErrorNombre() {
 		JOptionPane.showMessageDialog(null, "Tu nombre debe no ser vacio y tener más de 2 caracteres y menos de 11", 
 				"Error al iniciar el juego", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	private void informacionDeJuego() {
+	public void informacionDeJuego() {
 		JOptionPane.showMessageDialog(null, "  El juego consiste en adivinar una palabra secreta de" + " \n " +
 			"   x letras que propone la aplicación. Al iniciar el juego," + " \n " +
 			"     la aplicación selecciona aleatoriamente la palabra " + " \n " +
@@ -99,6 +98,9 @@ public class MenuScreen extends JFrame{
 			"  turno el usuario le informa al juego una palabra. Si la" + " \n " +
 			"  palabra que introdujo el usuario coincide con la palabra" + " \n " +
 			"        secreta, el usuario gana el juego" + "\n ", "Reglas del juego", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void cerrar() {
 		dispose();
 	}
 }
