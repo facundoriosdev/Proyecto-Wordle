@@ -11,15 +11,22 @@ import model.Palabra.EstadoLetra;
 public class Partida {
 	private Palabra palabraSecreta;
 	private String[] historial;
+	private String jugador;
 	private ArrayList<EstadoLetra[]> colores;
 	private int cantIntentos;
 	private int maxIntentos;
-	public Partida(String secreta, int nivel) {
+	private long tiempoInicio;
+	private long tiempoFin;
+	private boolean gano;
+	public Partida(String secreta, int nivel, String jugador) {
 		this.palabraSecreta= new Palabra(secreta);
+		this.jugador=jugador;
 		this.colores=new ArrayList<>();
 		this.cantIntentos=0;
 		this.maxIntentos=dificultad(nivel);
 		this.historial= new String [maxIntentos];
+		this.tiempoInicio = System.currentTimeMillis();
+		this.gano=false;
 	}
 	private int dificultad(int nivel) {
 		switch(nivel) {
@@ -28,18 +35,37 @@ public class Partida {
 		default: return 4;
 		}
 	}
-	private boolean arriesgar(Palabra intento) {
-		if(cantIntentos>maxIntentos) {
-			historial[cantIntentos]= intento.getString();
-			EstadoLetra[] resultado= this.palabraSecreta.compararPalabra(intento);
-			
-			colores.add(resultado);
-			cantIntentos++;
-			return (palabraSecreta.getString()).equals(intento.getString()); //ganó
-		}
-		return false;
-	}
+	public void procesarIntento(String intentoStr) {
+        if (cantIntentos < maxIntentos && !gano) {
+            Palabra intento = new Palabra(intentoStr);
+            EstadoLetra[] resultado = this.palabraSecreta.compararPalabra(intento);
+            colores.add(resultado);
+            historial[cantIntentos] = intentoStr; 
+            if (palabraSecreta.getString().equals(intentoStr)) {
+                this.gano = true;
+                this.tiempoFin= System.currentTimeMillis();   
+            }
+            
+            cantIntentos++;
+        }
+        if(!gano && cantIntentos== maxIntentos) {
+        	this.tiempoFin = System.currentTimeMillis();
+        }
+    }
+
 	public ArrayList<EstadoLetra[]> getColores(){
 		return colores;
 	}
+	public boolean getGano() {
+		return gano; 
+	}
+	public double getTiempoFinalSegundos() {
+		return(tiempoFin-tiempoInicio)/1000;
+	}
+	public String getJugador() {
+		return jugador;
+	}
+	public boolean laPartidaTermino() {
+        return gano || cantIntentos == maxIntentos;
+    }
 }

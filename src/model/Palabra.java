@@ -1,33 +1,58 @@
 package model;
 public class Palabra {
-	private final int largo;
-	private final String palabra;
+	private final int largo_palabra;
+	private String letras;
 	
 	//Crea la palabra secreta para manejarla
-	public Palabra (String palabraSecreta) {
-		this.palabra = palabraSecreta.toLowerCase(); // en el txt estan todas en LowerCase
-		this.largo = palabraSecreta.length();
+	public Palabra (String letras) {
+		this.largo_palabra= letras.length();
+		
+		this.letras=letras.toUpperCase();
 	}
 	
-	// Compara el intento del usuario con la palabra secreta
-	public EstadoLetra[] compararPalabra(String intentoPalabra) {
-		EstadoLetra[] comparacion = new EstadoLetra[this.largo];
-		for(int i = 0; i < this.largo; i++) {
-			char letra = intentoPalabra.charAt(i);
-			if(letra == this.palabra.charAt(i))
-				comparacion[i] = EstadoLetra.VERDE;
-			else if(this.palabra.contains(""+letra)) // "" + letra = castea el char a String
-				comparacion[i] = EstadoLetra.AMARILLO;
-			else
-				comparacion[i] = EstadoLetra.GRIS;
+	//El metodo anterior no puede marcar letras de colores incorrectos
+	//asi que no borren el stringbuilder ni toquen nada de esta logica
+	public EstadoLetra[] compararPalabra(Palabra otrapalabra) {
+		if(otrapalabra.largo_palabra!= largo_palabra) {
+			throw new IllegalArgumentException("Ingrese una palabra con 5 letras");
+			}
+		EstadoLetra[] comparacion= new EstadoLetra[largo_palabra];
+		StringBuilder borrador = new StringBuilder(this.letras);
+		for(int i=0; i<largo_palabra; i++) {
+			if(borrador.charAt(i)==otrapalabra.letras.charAt(i)) {
+				comparacion[i]=EstadoLetra.VERDE;
+				borrador.setCharAt(i,'*');
+			}
+			}
+			for(int i=0; i<largo_palabra; i++) {
+				if(comparacion[i]==null) {
+					int index=borrador.indexOf(String.valueOf(otrapalabra.letras.charAt(i)));
+					if(index!=-1) {
+						comparacion[i]=EstadoLetra.AMARILLO;
+						borrador.setCharAt(index, '*');
+					}else {
+					comparacion[i]=EstadoLetra.GRIS;
+				}
+			}
+				
 		}
+			
 		return comparacion;
 	}
 	
-	// Estados para cada letra
 	public enum EstadoLetra{
-		VERDE,
-		AMARILLO,
-		GRIS;
+		VERDE("V"), AMARILLO("A"),
+		GRIS("G");
+		private final String color;
+		EstadoLetra(String color){
+			this.color=color;
+		}
+		@Override
+		public String toString() {
+			return color;
+		}
+	}
+	public String getString() {
+		return letras;
 	}
 }
