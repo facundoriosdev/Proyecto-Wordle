@@ -1,10 +1,8 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
-public class GameScreen extends JFrame{
+public class GameScreen extends JFrame implements GameView{
 	
 	//La idea es generar un matriz, y la cantidad de columnas sera la dificultad que elgio el jugador(FACIL,MEDIO,DIFICIL)
 	//Ademas cada fila sera la cantidad de intento, cada celda de la matriz la podemos pintar con el color que corresponda al

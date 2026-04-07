@@ -3,7 +3,6 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -14,12 +13,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import presenter.MenuPresenter;
 
-public class MenuScreen extends JFrame{
+public class MenuScreen extends JFrame implements MenuView{
 	private MenuPresenter presenter;
 	private JTextField nombreField;
 	private JComboBox<String> dificultadBox;
 
 	public MenuScreen() {
+		this.presenter = new MenuPresenter(this);
+		
 		// Caracteristicas de la pantalla:
 		getContentPane().setBackground(new Color(0, 153, 204));
 		getContentPane().setForeground(new Color(0, 0, 0));
@@ -72,23 +73,28 @@ public class MenuScreen extends JFrame{
 	}
 	
 	//***********************************************
-	public void setPresenter(MenuPresenter presenter) {
-		this.presenter = presenter;
-	}
-	
+	@Override
 	public String getNombre() {
 		return nombreField.getText();
 	}
 	
+	@Override
 	public String getDificultad() {
 		return (String) dificultadBox.getSelectedItem();
 	}
 	
+	@Override
+	public void setPresenter(MenuPresenter presenter) {
+		this.presenter = presenter;
+	}
+	
+	@Override
 	public void mostrarErrorNombre() {
 		JOptionPane.showMessageDialog(null, "Tu nombre debe no ser vacio y tener más de 2 caracteres y menos de 11", 
 				"Error al iniciar el juego", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	@Override
 	public void informacionDeJuego() {
 		JOptionPane.showMessageDialog(null, "  El juego consiste en adivinar una palabra secreta de" + " \n " +
 			"   x letras que propone la aplicación. Al iniciar el juego," + " \n " +
@@ -100,6 +106,7 @@ public class MenuScreen extends JFrame{
 			"        secreta, el usuario gana el juego" + "\n ", "Reglas del juego", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	@Override
 	public void cerrar() {
 		dispose();
 	}

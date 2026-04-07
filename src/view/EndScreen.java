@@ -1,10 +1,8 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
-public class EndScreen extends JFrame{
+public class EndScreen extends JFrame implements EndView{
 
 	private JFrame frame;
 

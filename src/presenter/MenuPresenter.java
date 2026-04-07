@@ -1,12 +1,12 @@
 package presenter;
 
-import view.MenuScreen;
+import view.MenuView;
 import view.GameScreen;
 
 public class MenuPresenter {
-	private MenuScreen view;
+	private MenuView view;
 	
-	public MenuPresenter(MenuScreen view) {
+	public MenuPresenter(MenuView view) {
 		this.view = view;
 	}
 	
