@@ -55,4 +55,5 @@ public class Palabra {
 	public String getString() {
 		return letras;
 	}
+	
 }

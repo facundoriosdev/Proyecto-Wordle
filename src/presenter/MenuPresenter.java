@@ -19,8 +19,6 @@ public class MenuPresenter {
 		}
 		view.informacionDeJuego();
 		view.cerrar();
-		GameScreen game = new GameScreen(nombre, dificultad);
-		game.setVisible(true);
-		game.setLocationRelativeTo(null);
+		new GameScreen(nombre, dificultad);
 	}
 }

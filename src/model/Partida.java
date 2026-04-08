@@ -56,6 +56,10 @@ public class Partida {
 	public ArrayList<EstadoLetra[]> getColores(){
 		return colores;
 	}
+	public EstadoLetra[] coloresDeUltimoIntento(){
+		return colores.get(colores.size()-1);
+		
+	}
 	public boolean getGano() {
 		return gano; 
 	}
@@ -68,4 +72,7 @@ public class Partida {
 	public boolean laPartidaTermino() {
         return gano || cantIntentos == maxIntentos;
     }
+	public String pedirPalabraSecreta() {
+		return palabraSecreta.getString();
+	}
 }

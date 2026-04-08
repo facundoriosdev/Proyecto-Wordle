@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import model.Palabra.EstadoLetra;
+
 //	 
 // Clase que manejara la logica para que la clase GameScreen la utilze (seria la logica del juego)
 //
@@ -18,16 +20,19 @@ public class Juego {
 	
 	public Juego() {
 		this.diccionario=new ArrayList<>();
-		this.idioma= Idioma("lenguaje");
 		cargarDiccionario();
 		this.ranking = new ArrayList<>();
 	}
 
 	private void cargarDiccionario() {
-		// TODO Auto-generated method stub
+		diccionario.add("CASAS");
+	    diccionario.add("PERRO");
+	    diccionario.add("GATOS");
+	    diccionario.add("MUNDO");
+	    diccionario.add("ARBOL");
 		
 	}
-	public void iniciarPartida(int dificultad) {
+	public void iniciarPartida(int dificultad, String nombre) {
 		if(diccionario.isEmpty()) {
 			throw new IllegalStateException("Diccionario vacio");
 		}
@@ -35,7 +40,7 @@ public class Juego {
 		int indice=rand.nextInt(diccionario.size());
 		String palabraElegida=diccionario.get(indice);
 		
-		this.partidaActual= new Partida (palabraElegida,dificultad, "pepe");
+		this.partidaActual= new Partida (palabraElegida,dificultad, nombre);
 	}
 	private String Idioma(String idioma) {
 		switch (idioma) {
@@ -49,6 +54,10 @@ public class Juego {
 			guardarPuntaje();
 			}
 	}
+	public EstadoLetra[] pedirUltimosColores() {
+		return partidaActual.coloresDeUltimoIntento();
+		
+	}
 	public void guardarPuntaje() {
 	        this.ranking.add(new ResultadoJuego(partidaActual.getJugador(), partidaActual.getTiempoFinalSegundos()));
 	
@@ -56,6 +65,23 @@ public class Juego {
 	}
 	
 	public record ResultadoJuego(String nombreJugador, double tiempo) {}
+
+	public EstadoLetra[] ObtenerUltimosColores() {
+		
+		return null;
+	}
+
+	public boolean partidaTerminada() {	
+		return partidaActual.laPartidaTermino();
+	}
+
+	public boolean jugadorGano() {
+		return partidaActual.getGano();
+	}
+
+	public String obtenerPalabraSecreta() {
+		return partidaActual.pedirPalabraSecreta();
+	}
 	}
 
 	
