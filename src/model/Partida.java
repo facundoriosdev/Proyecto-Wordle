@@ -2,10 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-//
-// Creo que esta clase ya no tiene sentido, seria mejor manejar la logica en la clase juego
-//
-
 import model.Palabra.EstadoLetra;
 //Aca solo se maneja lo que es la "Partida", por lo que no deberia guardar muchas cosas mas alla de los colores e historial de intentos.
 public class Partida {
@@ -74,5 +70,8 @@ public class Partida {
     }
 	public String pedirPalabraSecreta() {
 		return palabraSecreta.getString();
+	}
+	public int getLargodepalabra() {
+		return palabraSecreta.getlargo_palabra();
 	}
 }

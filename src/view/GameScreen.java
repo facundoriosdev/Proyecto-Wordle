@@ -11,37 +11,48 @@ import java.awt.event.ActionListener;
 public class GameScreen extends JFrame implements GameView {
     
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GamePresenter presenter;
     private JLabel[][] matrizLetras;
     private JTextField inputIntento;
     private JButton btnArriesgar;
     private int maxIntentos;
-    private final int LARGO_PALABRA = 5;
+    private  int largo_palabra;
+    private String idiomaActual;
 
-    public GameScreen(String nombre, String dificultadStr) {
-        
-        setTitle("Wordle - Jugador: " + nombre);
+    public GameScreen(String nombre, String dificultadStr, String idioma) {
+    	this.idiomaActual = idioma;
+    	if (idioma.equals("ENGLISH")) {
+            setTitle("Wordle - Player: " + nombre);
+        } else {
+            setTitle("Wordle - Jugador: " + nombre);
+        }
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 600);
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(new BorderLayout());
+        this.presenter = new GamePresenter(this, nombre, dificultadStr, idioma);
 
        //calcula la cantidad de filas dependiendo de la dificultad
         this.maxIntentos = calcularFilas(dificultadStr);
+        this.largo_palabra=presenter.pasarLargodePalabra();
 
         
         JPanel panelGrilla = new JPanel();
-        panelGrilla.setLayout(new GridLayout(maxIntentos, LARGO_PALABRA, 5, 5)); // Filas, Columnas
+        panelGrilla.setLayout(new GridLayout(maxIntentos, largo_palabra, 5, 5)); // Filas, Columnas
         panelGrilla.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         panelGrilla.setBackground(Color.DARK_GRAY);
 
         
-        matrizLetras = new JLabel[maxIntentos][LARGO_PALABRA];
+        matrizLetras = new JLabel[maxIntentos][largo_palabra];
         Font fuenteLetra = new Font("Arial", Font.BOLD, 30);
 
         for (int f = 0; f < maxIntentos; f++) {
-            for (int c = 0; c < LARGO_PALABRA; c++) {
+            for (int c = 0; c < largo_palabra; c++) {
                 JLabel lblLetra = new JLabel("", SwingConstants.CENTER);
                 lblLetra.setFont(fuenteLetra);
                 lblLetra.setOpaque(true); 
@@ -61,15 +72,18 @@ public class GameScreen extends JFrame implements GameView {
         inputIntento = new JTextField(10);
         inputIntento.setFont(new Font("Arial", Font.PLAIN, 20));
         
-        btnArriesgar = new JButton("Arriesgar");
-        btnArriesgar.setFont(new Font("Arial", Font.BOLD, 20));
-
-        panelInferior.add(new JLabel("Intento: "));
+        if (idioma.equals("ENGLISH")) {
+            btnArriesgar = new JButton("GUESS");
+            panelInferior.add(new JLabel("Word: "));
+        } else {
+            btnArriesgar = new JButton("Arriesgar");
+            panelInferior.add(new JLabel("Intento: "));
+        }
         panelInferior.add(inputIntento);
         panelInferior.add(btnArriesgar);
         add(panelInferior, BorderLayout.SOUTH);
 
-        this.presenter = new GamePresenter(this, nombre, dificultadStr);
+        
 
         btnArriesgar.addActionListener(new ActionListener() {
             @Override
@@ -85,22 +99,22 @@ public class GameScreen extends JFrame implements GameView {
 
     @Override
     public void pintarFila(int fila, String palabra, EstadoLetra[] colores) {
-        for (int c = 0; c < LARGO_PALABRA; c++) {
+        for (int c = 0; c < largo_palabra; c++) {
             JLabel lblActual = matrizLetras[fila][c];
             
-           
             lblActual.setText(String.valueOf(palabra.charAt(c)));
-            
-            
+            Color verdeCasilla= new Color(83, 141, 78);
+            Color amarillaCasilla= new Color(181, 159, 59);
+            Color grisCasilla= new Color(58,58,60);
             EstadoLetra estado = colores[c];
             if (estado == EstadoLetra.VERDE) {
-                lblActual.setBackground(new Color(83, 141, 78)); 
+                lblActual.setBackground(verdeCasilla); 
                 lblActual.setForeground(Color.WHITE);
             } else if (estado == EstadoLetra.AMARILLO) {
-                lblActual.setBackground(new Color(181, 159, 59)); 
+                lblActual.setBackground(amarillaCasilla); 
                 lblActual.setForeground(Color.WHITE);
             } else {
-                lblActual.setBackground(new Color(58, 58, 60)); 
+                lblActual.setBackground(grisCasilla); 
                 lblActual.setForeground(Color.WHITE);
             }
         }
@@ -113,8 +127,18 @@ public class GameScreen extends JFrame implements GameView {
 
     @Override
     public void mostrarMensajeFinJuego(boolean gano, String palabraSecreta) {
-        String mensaje = gano ? "¡Felicitaciones! Adivinaste la palabra." : "Juego terminado. La palabra era: " + palabraSecreta;
-        JOptionPane.showMessageDialog(this, mensaje, "Fin de la Partida", JOptionPane.INFORMATION_MESSAGE);
+    	String mensaje;
+        String titulo;
+        
+        if (idiomaActual.equals("ENGLISH")) {
+            mensaje = gano ? "Congratulations! You guessed the word." : "Game Over. The word was: " + palabraSecreta;
+            titulo = "Game Over";
+        } else {
+            mensaje = gano ? "¡Felicitaciones! Adivinaste la palabra." : "Juego terminado. La palabra era: " + palabraSecreta;
+            titulo = "Fin de la Partida";
+        }
+        
+        JOptionPane.showMessageDialog(this, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
@@ -125,9 +149,15 @@ public class GameScreen extends JFrame implements GameView {
 
     private int calcularFilas(String dif) {
         switch(dif) {
-            case "FACIL": return 8;
-            case "MEDIO": return 6;
-            default: return 4;
+            case "FACIL":
+            case "EASY":
+                return 8;
+            case "MEDIO":
+            case "MEDIUM":
+                return 6;
+            default: 
+                return 4; // DIFICIL y HARD 
         }
     }
+    
 }

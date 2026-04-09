@@ -55,5 +55,8 @@ public class Palabra {
 	public String getString() {
 		return letras;
 	}
+	public int getlargo_palabra() {
+		return largo_palabra;
+	}
 	
 }

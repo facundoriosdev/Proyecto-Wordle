@@ -9,4 +9,6 @@ public interface MenuView {
 	public void mostrarErrorNombre();
 	public void informacionDeJuego() ;
 	public void cerrar();
+	public void actualizarTextos(String idioma);
+	public String getIdiomaSeleccionado();
 }
