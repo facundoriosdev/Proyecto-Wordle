@@ -14,7 +14,7 @@ public class Palabra {
 	//asi que no borren el stringbuilder ni toquen nada de esta logica
 	public EstadoLetra[] compararPalabra(Palabra otrapalabra) {
 		if(otrapalabra.largo_palabra!= largo_palabra) {
-			throw new IllegalArgumentException("Ingrese una palabra con 5 letras");
+			throw new IllegalArgumentException("Ingrese una palabra con " + largo_palabra + " letras");
 			}
 		EstadoLetra[] comparacion= new EstadoLetra[largo_palabra];
 		StringBuilder borrador = new StringBuilder(this.letras);

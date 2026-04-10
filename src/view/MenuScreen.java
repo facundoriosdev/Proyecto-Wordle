@@ -37,7 +37,7 @@ public class MenuScreen extends JFrame implements MenuView{
 		// Textos en Pantalla:
 		tituloLabel = new JLabel("WORDLE TP1");
 		tituloLabel.setFont(new Font("Tahoma", Font.BOLD, 50));
-		tituloLabel.setBounds(123, 0, 335, 75);
+		tituloLabel.setBounds(123, 0, 360, 75);
 		getContentPane().add(tituloLabel);
 		
 		nombreLabel = new JLabel("NOMBRE:");
